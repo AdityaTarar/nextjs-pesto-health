@@ -30,7 +30,6 @@ import { useDispatch, useSelector } from "react-redux";
 import DoctorTimeSlots from "@/components/DoctorTimeSlots";
 import AppointmentDetails from "@/components/AppointmentDetails";
 import { useRouter } from "next/navigation";
-import { createAvailability } from "@/store/slices/healthcare/profileSlice";
 import moment from "moment";
 import LoadingBackdrop from "@/components/Loader";
 import {
@@ -145,15 +144,15 @@ function Page() {
       alert("Duration can not be less or equal to zero");
       return;
     }
-    const res = await dispatch(createAvailability(payload));
+    // const res = await dispatch(createAvailabilityActionz(payload));
 
-    if (res?.payload?.status === 200) {
-      setLoading(false);
-      fetchTimeSlots();
-    } else {
-      setLoading(false);
-      alert("Something went wrong");
-    }
+    // if (res?.payload?.status === 200) {
+    //   setLoading(false);
+    //   fetchTimeSlots();
+    // } else {
+    //   setLoading(false);
+    //   alert("Something went wrong");
+    // }
   };
   console.log("doctorsAvailability", doctorsAvailability);
 
