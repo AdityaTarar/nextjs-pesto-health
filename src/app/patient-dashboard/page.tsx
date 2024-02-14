@@ -2,7 +2,7 @@
 import Charts from "@/components/Charts";
 import VitalsForm from "@/components/VitalsForm";
 import { CTX } from "@/context/context";
-import { getAllVitalsByPatient } from "@/store/slices/patients/vitalSlice";
+// import { getAllVitalsByPatient } from "@/store/slices/patients/vitalSlice";
 import {
   Avatar,
   Box,
@@ -57,17 +57,17 @@ const page = () => {
     await dispatch(updateVitalsAction(payload));
   };
   const handleGetVitals = async () => {
-    const res = await dispatch(
-      getAllVitalsByPatient({ patientId: userDetails?._id })
+    await dispatch(
+      getAllVitalsByPatientAction({ patientId: userDetails?._id })
     );
-    if (res?.payload?.status === 200) {
-      const vitalsCopy = [res?.payload?.data];
-      const sortedVitals = vitalsCopy.sort(
-        (a, b) => moment(a.date).valueOf() - moment(b.date).valueOf()
-      );
-      const sortedVitalsCopy = [...sortedVitals];
-      setVitals(sortedVitalsCopy);
-    }
+    // if (res?.payload?.status === 200) {
+    //   const vitalsCopy = [res?.payload?.data];
+    //   const sortedVitals = vitalsCopy.sort(
+    //     (a, b) => moment(a.date).valueOf() - moment(b.date).valueOf()
+    //   );
+    //   const sortedVitalsCopy = [...sortedVitals];
+    //   setVitals(sortedVitalsCopy);
+    // }
   };
 
   function extractVitalProperty(vitals: any, propertyName: any): any {

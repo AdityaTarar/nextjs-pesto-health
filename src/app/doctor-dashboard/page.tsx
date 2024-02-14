@@ -27,7 +27,6 @@ import dayjs from "dayjs";
 
 import doctorDashboard from "../../../public/images/doctorDashboard.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyUpcommingAppointments } from "@/store/slices/healthcare/appointmentSlice";
 import DoctorTimeSlots from "@/components/DoctorTimeSlots";
 import AppointmentDetails from "@/components/AppointmentDetails";
 import { useRouter } from "next/navigation";
@@ -38,6 +37,7 @@ import {
   getDoctorsAvailabilityAction,
   getVideoConferenceDetailsAction,
 } from "@/store/actions/patient/appointmentActions";
+import { getMyUpcommingAppointmentAction } from "@/store/actions/doctor/appointmentActions";
 function Page() {
   const router = useRouter();
   const dispatch: any = useDispatch();
@@ -63,13 +63,12 @@ function Page() {
     (state: any) => state?.appointmentData?.doctorsAvailability?.data
   );
   const handleGetUpcommingAppointment = async () => {
-    const res = await dispatch(
-      getMyUpcommingAppointments({
+    await dispatch(
+      getMyUpcommingAppointmentAction({
         doctorId: userDetails?._id,
         date: appointmentDate,
       })
     );
-    setUpcommingAppointments(res?.payload?.data);
     fetchTimeSlots();
   };
   useEffect(() => {

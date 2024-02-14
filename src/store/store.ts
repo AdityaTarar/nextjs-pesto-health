@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authPatientReducer } from './reducers/patient/authReducers';
 import { authDoctorReducer } from './reducers/doctor/authReducers'
 import { appointmentPatientReducer } from './reducers/patient/appointmentReducers';
+import { appointmentDoctorReducer } from './reducers/doctor/appointmentDoctorReducer';
 import { medicationPatientReducer } from './reducers/patient/medicationReducer';
 import { vitalsReducers } from './reducers/patient/vitalsReducers';
 import doctorReducer from './slices/healthcare/authSlice';
@@ -16,6 +17,7 @@ const store = configureStore({
   reducer: {
     patientAuth: authPatientReducer,
     appointmentData: appointmentPatientReducer,
+    doctorAppointmentData: appointmentDoctorReducer,
     medicationData: medicationPatientReducer,
     vitalsData: vitalsReducers,
     doctorAuth: authDoctorReducer,

@@ -3,8 +3,6 @@ import AppointmentModal from "@/components/AppointmentModal";
 import DoctorCard from "@/components/DoctorCard";
 import Map from "@/components/Map";
 import { CTX } from "@/context/context";
-// import { getDoctors } from "@/store/slices/patients/bookappointmentSlice";
-
 import {
   Box,
   HStack,
