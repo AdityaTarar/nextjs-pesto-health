@@ -1,3 +1,4 @@
+"use client";
 import { COLORS } from "@/app/colors";
 import { Box, Spinner } from "@chakra-ui/react";
 

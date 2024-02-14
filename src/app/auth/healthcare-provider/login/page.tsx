@@ -18,7 +18,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import doctorSvg from "../../../../../public/images/doctor.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,9 +26,9 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUserState } from "@/store/interface/patients/authInterface";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { doctorLogin } from "@/store/slices/healthcare/authSlice";
 import { CTX } from "@/context/context";
 import { setCookie } from "cookies-next";
+import { doctorLoginAction } from "@/store/actions/doctor/authActions";
 
 export default function Page() {
   const router = useRouter();
@@ -39,6 +39,7 @@ export default function Page() {
   });
   const isLoading = useSelector((state: any) => state);
   console.log("isLoading", isLoading);
+  const doctorAuth = useSelector((state: any) => state?.doctorAuth);
 
   const authContext: any = useContext(CTX);
   const { _authenticate } = authContext;
@@ -69,15 +70,15 @@ export default function Page() {
     if (!validateForm()) {
       return;
     }
-    const res: any = await dispatch(doctorLogin(formData)).unwrap();
-    console.log("res", res);
+    await dispatch(doctorLoginAction(formData));
 
-    if (res?.status === 200) {
+    if (doctorAuth?.user?.status === 200) {
       router.replace("/doctor-dashboard");
       setCookie("isAuthenticated", "true");
       setCookie("user_type", "doctor");
-      setCookie("user_details", JSON.stringify(res?.data));
-      _authenticate(res?.data, "doctor");
+      setCookie("user_details", doctorAuth?.user?.data?.data);
+      setCookie("access_token", doctorAuth?.user?.data?.token);
+      _authenticate(doctorAuth?.user?.data, "patient");
     }
   };
   return (

@@ -1,6 +1,7 @@
 // Import necessary dependencies
 import { configureStore } from '@reduxjs/toolkit';
 import { authPatientReducer } from './reducers/patient/authReducers';
+import { authDoctorReducer } from './reducers/doctor/authReducers'
 import { appointmentPatientReducer } from './reducers/patient/appointmentReducers';
 import { medicationPatientReducer } from './reducers/patient/medicationReducer';
 import { vitalsReducers } from './reducers/patient/vitalsReducers';
@@ -17,7 +18,7 @@ const store = configureStore({
     appointmentData: appointmentPatientReducer,
     medicationData: medicationPatientReducer,
     vitalsData: vitalsReducers,
-    doctorAuth: doctorReducer,
+    doctorAuth: authDoctorReducer,
     paymentsData: PaymentsReducer,
     loader: loaderReducer, // Adjusted key to match slice name
     doctorAppointment: docotrAppointmentSlice,
