@@ -1,3 +1,4 @@
+"use client";
 import { COLORS } from "@/app/colors";
 import {
   Modal,
