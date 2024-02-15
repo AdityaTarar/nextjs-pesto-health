@@ -42,9 +42,9 @@ export default function page() {
     (state: any) => state?.appointmentData?.doctors?.data
   );
   // const [doctorsList, setdoctorsList] = useState([]);
-  useEffect(() => {
-    setSelectedCity(userDetails?.city);
-  }, [userDetails]);
+  // useEffect(() => {
+  //   setSelectedCity(userDetails?.city);
+  // }, [userDetails]);
   useEffect(() => {
     let timer: any = null;
     timer = setTimeout(async () => {
