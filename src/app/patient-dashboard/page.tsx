@@ -31,7 +31,7 @@ const page = () => {
   const authContext: any = useContext(CTX);
   const { userDetails }: any = authContext;
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [vitals, setVitals]: any = useState([]);
+  // const [vitals, setVitals]: any = useState([]);
   const upcommingAppointments = useSelector(
     (state: any) =>
       state?.appointmentData?.appointmentsByPatient?.data?.data
@@ -40,7 +40,9 @@ const page = () => {
   const updatedVitals = useSelector(
     (state: any) => state?.vitalsData?.updateVitals?.data
   );
-  const vitalsData = useSelector((state: any) => state?.vitalsData);
+  const vitalsData = useSelector(
+    (state: any) => state?.vitalsData?.allVitalsByPatient?.data
+  );
   console.log("upcommingAppointments", upcommingAppointments);
 
   useEffect(() => {
@@ -71,9 +73,10 @@ const page = () => {
   };
 
   function extractVitalProperty(vitals: any, propertyName: any): any {
-    const flattenedVitals = vitals.flat();
+    // const flattenedVitals = vitals.flat();
+    console.log("extractVitalProperty", vitals);
 
-    const filteredVitals = flattenedVitals.filter(
+    const filteredVitals = vitals.filter(
       (vital: { hasOwnProperty: (arg0: any) => any }) =>
         vital.hasOwnProperty(propertyName)
     );
@@ -124,10 +127,7 @@ const page = () => {
       console.error("Error fetching appointments:", error);
     }
   };
-  console.log(
-    'extractVitalProperty(vitals, "heartRate")',
-    extractVitalProperty(vitals, "heartRate")
-  );
+  console.log('extractVitalProperty(vitals, "heartRate")', vitalsData);
 
   return (
     <>
@@ -146,7 +146,7 @@ const page = () => {
           >
             Update Vitals
           </Link>
-          {vitals?.length > 0 && (
+          {vitalsData?.length > 0 && (
             <SimpleGrid
               gap={8}
               mt={8}
@@ -155,43 +155,47 @@ const page = () => {
               columns={{ sm: 1, md: 2 }}
             >
               <Charts
-                chartData={extractVitalProperty(vitals, "heartRate")}
+                chartData={extractVitalProperty(vitalsData, "heartRate")}
                 chartType="heartRate"
                 latestVital={
-                  extractVitalProperty(vitals, "heartRate")[
-                    extractVitalProperty(vitals, "heartRate").length - 1
+                  extractVitalProperty(vitalsData, "heartRate")[
+                    extractVitalProperty(vitalsData, "heartRate").length - 1
                   ]?.heartRate
                 }
               />
               <Charts
-                chartData={extractVitalProperty(vitals, "oxygenLevel")}
+                chartData={extractVitalProperty(vitalsData, "oxygenLevel")}
                 latestVital={
-                  extractVitalProperty(vitals, "oxygenLevel")[
-                    extractVitalProperty(vitals, "oxygenLevel").length - 1
+                  extractVitalProperty(vitalsData, "oxygenLevel")[
+                    extractVitalProperty(vitalsData, "oxygenLevel").length - 1
                   ]?.oxygenLevel
                 }
                 chartType="oxygenLevel"
               />
               <Charts
-                chartData={extractBloodPressureProperty(vitals, "lBp", "hBp")}
+                chartData={extractBloodPressureProperty(
+                  vitalsData,
+                  "lBp",
+                  "hBp"
+                )}
                 chartType="bp"
                 latestVital={`${
-                  extractBloodPressureProperty(vitals, "lBp", "hBp")[
-                    extractBloodPressureProperty(vitals, "lBp", "hBp").length -
-                      1
+                  extractBloodPressureProperty(vitalsData, "lBp", "hBp")[
+                    extractBloodPressureProperty(vitalsData, "lBp", "hBp")
+                      .length - 1
                   ]?.hBp
                 }/${
-                  extractBloodPressureProperty(vitals, "lBp", "hBp")[
-                    extractVitalProperty(vitals, "heartRate").length - 1
+                  extractBloodPressureProperty(vitalsData, "lBp", "hBp")[
+                    extractVitalProperty(vitalsData, "heartRate").length - 1
                   ]?.lBp
                 }`}
               />
               <Charts
-                chartData={extractVitalProperty(vitals, "bodyTemp")}
+                chartData={extractVitalProperty(vitalsData, "bodyTemp")}
                 chartType="bodyTemp"
                 latestVital={
-                  extractVitalProperty(vitals, "bodyTemp")[
-                    extractVitalProperty(vitals, "bodyTemp").length - 1
+                  extractVitalProperty(vitalsData, "bodyTemp")[
+                    extractVitalProperty(vitalsData, "bodyTemp").length - 1
                   ]?.bodyTemp
                 }
               />
@@ -202,36 +206,43 @@ const page = () => {
           <Box p={4} borderRadius={20} bg={"rgba(108, 99, 255, 0.3)"}>
             <HStack gap={8} alignItems={"start"}>
               <Box>
-                <Box p={4} bg={"#F8DEBD"} mb={4} borderRadius={10}>
+                {/* <Box p={4} bg={"#F8DEBD"} mb={4} borderRadius={10}>
                   <Text>
-                    Height {extractVitalProperty(vitals, "height")[0]?.height}{" "}
-                    inch
+                    Height{" "}
+                    {extractVitalProperty(vitalsData, "height")[0]?.height} inch
                   </Text>
                 </Box>
                 <Box p={4} bg={"#F8DEBD"} borderRadius={10}>
                   <Text>
-                    Weight {extractVitalProperty(vitals, "weight")[0]?.weight}{" "}
-                    kg
+                    Weight{" "}
+                    {extractVitalProperty(vitalsData, "weight")[0]?.weight} kg
+                  </Text>
+                </Box> */}
+              </Box>
+              {vitalsData?.length > 0 && (
+                <Box
+                  bg={COLORS.primary}
+                  p={4}
+                  color={"white"}
+                  borderRadius={10}
+                >
+                  <Text fontSize={"xl"}>Body Mass Index(BMI)</Text>
+                  <Text fontSize={"lg"} my={2} fontWeight={"700"}>
+                    {calculateBMI(
+                      extractVitalProperty(vitalsData, "height")[0]?.height,
+                      extractVitalProperty(vitalsData, "weight")[0]?.weight
+                    ).bmi.toFixed(2)}
+                  </Text>
+                  <Text fontSize={"md"}>
+                    {
+                      calculateBMI(
+                        extractVitalProperty(vitalsData, "height")[0]?.height,
+                        extractVitalProperty(vitalsData, "weight")[0]?.weight
+                      ).classification
+                    }
                   </Text>
                 </Box>
-              </Box>
-              <Box bg={COLORS.primary} p={4} color={"white"} borderRadius={10}>
-                <Text fontSize={"xl"}>Body Mass Index(BMI)</Text>
-                <Text fontSize={"lg"} my={2} fontWeight={"700"}>
-                  {calculateBMI(
-                    extractVitalProperty(vitals, "height")[0]?.height,
-                    extractVitalProperty(vitals, "weight")[0]?.weight
-                  ).bmi.toFixed(2)}
-                </Text>
-                <Text fontSize={"md"}>
-                  {
-                    calculateBMI(
-                      extractVitalProperty(vitals, "height")[0]?.height,
-                      extractVitalProperty(vitals, "weight")[0]?.weight
-                    ).classification
-                  }
-                </Text>
-              </Box>
+              )}
             </HStack>
           </Box>
           <Box bg={"white"}>
@@ -244,7 +255,7 @@ const page = () => {
               Upcomming Appointments
             </Text>
             <Box maxH={"49vh"} overflowY={"scroll"}>
-              {upcommingAppointments?.length > 0 &&
+              {upcommingAppointments?.length > 0 ? (
                 upcommingAppointments?.map((items: any, index: any) => {
                   return (
                     <Stack
@@ -277,7 +288,10 @@ const page = () => {
                       </Text>
                     </Stack>
                   );
-                })}
+                })
+              ) : (
+                <Text>No Upcomming appointments.</Text>
+              )}
             </Box>
           </Box>
         </Box>
