@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { COLORS } from "@/app/colors";
 import { STATES } from "@/utils/states";
-// import axios from "axios";
+import axios from "axios";
 import LoadingBackdrop from "@/components/Loader";
 import { getDoctorsAction } from "@/store/actions/patient/appointmentActions";
 import dynamic from "next/dynamic";
@@ -73,19 +73,19 @@ export default function page() {
     setSelectedDoctor(data);
     onOpen();
   };
-  // useEffect(() => {
-  //   axios
-  //     .post("https://countriesnow.space/api/v0.1/countries/state/cities", {
-  //       country: "India",
-  //       state: selectedState,
-  //     })
-  //     .then((response: any) => {
-  //       setCity(response.data.data);
-  //     })
-  //     .catch((error: any) => {
-  //       alert(error);
-  //     });
-  // }, [selectedState]);
+  useEffect(() => {
+    axios
+      .post("https://countriesnow.space/api/v0.1/countries/state/cities", {
+        country: "India",
+        state: selectedState,
+      })
+      .then((response: any) => {
+        setCity(response.data.data);
+      })
+      .catch((error: any) => {
+        alert(error);
+      });
+  }, [selectedState]);
 
   return (
     <Box px={{ base: 4, sm: 16 }} pt={{ base: 2, sm: 8 }}>
