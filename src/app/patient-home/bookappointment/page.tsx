@@ -1,7 +1,7 @@
 "use client";
 import AppointmentModal from "@/components/AppointmentModal";
 import DoctorCard from "@/components/DoctorCard";
-import Map from "@/components/Map";
+// import Map from "@/components/Map";
 import { CTX } from "@/context/context";
 import {
   Box,
@@ -20,9 +20,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { COLORS } from "@/app/colors";
 import { STATES } from "@/utils/states";
-import axios from "axios";
+// import axios from "axios";
 import LoadingBackdrop from "@/components/Loader";
 import { getDoctorsAction } from "@/store/actions/patient/appointmentActions";
+import dynamic from "next/dynamic";
+const MapWithNoSSR = dynamic(() => import("@/components/Map"), {
+  ssr: false,
+});
 export default function page() {
   const { isOpen, onOpen, onClose }: any = useDisclosure();
   const authContext: any = useContext(CTX);
@@ -38,9 +42,21 @@ export default function page() {
     (state: any) => state?.appointmentData?.doctors?.data
   );
   // const [doctorsList, setdoctorsList] = useState([]);
-  // useEffect(() => {
-  //   setSelectedCity(userDetails?.city);
-  // }, [userDetails]);
+  useEffect(() => {
+    setSelectedCity(userDetails?.city);
+  }, [userDetails]);
+  useEffect(() => {
+    let timer: any = null;
+    timer = setTimeout(async () => {
+      setLoading(true);
+      dispatch(getDoctorsAction({ name: searchText, city: selectedCity }));
+      setLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchText, dispatch, selectedCity]);
   useEffect(() => {
     let timer: any = null;
     timer = setTimeout(async () => {
@@ -57,20 +73,19 @@ export default function page() {
     setSelectedDoctor(data);
     onOpen();
   };
-  useEffect(() => {
-    axios
-      .post("https://countriesnow.space/api/v0.1/countries/state/cities", {
-        country: "India",
-        state: selectedState,
-      })
-      .then((response: any) => {
-        setCity(response.data.data);
-      })
-      .catch((error: any) => {
-        alert(error);
-      });
-  }, [selectedState]);
-  console.log("doctorsList", doctorsList);
+  // useEffect(() => {
+  //   axios
+  //     .post("https://countriesnow.space/api/v0.1/countries/state/cities", {
+  //       country: "India",
+  //       state: selectedState,
+  //     })
+  //     .then((response: any) => {
+  //       setCity(response.data.data);
+  //     })
+  //     .catch((error: any) => {
+  //       alert(error);
+  //     });
+  // }, [selectedState]);
 
   return (
     <Box px={{ base: 4, sm: 16 }} pt={{ base: 2, sm: 8 }}>
@@ -133,7 +148,7 @@ export default function page() {
         </Select>
       </Box>
       <Text fontSize={"2xl"} fontWeight={"700"}>
-        Doctors in {userDetails?.city}
+        {/* Doctors in {userDetails?.city} */}
       </Text>
       <SimpleGrid h={"95vh"} dir="row" columns={{ sm: 1, md: 2 }}>
         <Box maxH={"95vh"} overflowY={"scroll"}>
@@ -153,7 +168,7 @@ export default function page() {
           )}
         </Box>
         <Box maxH={"95vh"}>
-          <Map />
+          <MapWithNoSSR />
         </Box>
       </SimpleGrid>
       <AppointmentModal

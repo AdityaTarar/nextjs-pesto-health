@@ -22,34 +22,34 @@ const page = () => {
   useEffect(() => {
     dispatch(clearVideoConferenceDetails());
   }, []);
-  const getAuthToken = () => {
-    const options = {
-      method: "POST",
-      url: `https://api.dyte.io/v2/meetings/${meetingId}/participants`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Basic MTRiMzA3YzktNGJiZS00MjM1LTgyYWYtYjNjOWU5MzU4Nzg2OmZkODQ5ZjliZjQ2MGJmY2E2NmU0",
-      },
-      data: {
-        name: "Aditya Tarar",
-        picture: "https://i.imgur.com/test.jpg",
-        preset_name: "patient",
-        custom_participant_id: "123",
-      },
-    };
+  // const getAuthToken = () => {
+  //   const options = {
+  //     method: "POST",
+  //     url: `https://api.dyte.io/v2/meetings/${meetingId}/participants`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization:
+  //         "Basic MTRiMzA3YzktNGJiZS00MjM1LTgyYWYtYjNjOWU5MzU4Nzg2OmZkODQ5ZjliZjQ2MGJmY2E2NmU0",
+  //     },
+  //     data: {
+  //       name: "Aditya Tarar",
+  //       picture: "https://i.imgur.com/test.jpg",
+  //       preset_name: "patient",
+  //       custom_participant_id: "123",
+  //     },
+  //   };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        if (response.data.success) {
-          setAuthToken(response?.data?.data?.token);
-        }
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
+  //   axios
+  //     .request(options)
+  //     .then(function (response) {
+  //       if (response.data.success) {
+  //         setAuthToken(response?.data?.data?.token);
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.error(error);
+  //     });
+  // };
   useEffect(() => {
     if (authToken !== "") {
       initMeeting({
