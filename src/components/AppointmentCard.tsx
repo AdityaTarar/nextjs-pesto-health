@@ -214,7 +214,7 @@ const AppointmentCard = ({
                         >
                           Cancel
                         </Button>
-                        <Link
+                        {/* <Link
                           color={COLORS.primary}
                           _hover={{ borderBottomWidth: 0 }}
                         >
@@ -225,12 +225,12 @@ const AppointmentCard = ({
                           >
                             Attach Reports
                           </Text>
-                        </Link>
+                        </Link> */}
                       </>
                     )}
                   </>
                 )}
-                {(data?.status !== "cancelled" || userType !== "doctor") && (
+                {/* {(data?.status !== "cancelled" || userType !== "doctor") && (
                   <Link
                     color={COLORS.primary}
                     _hover={{ borderBottomWidth: 0 }}
@@ -243,7 +243,7 @@ const AppointmentCard = ({
                       Chat with Dr. Amit
                     </Text>
                   </Link>
-                )}
+                )} */}
               </Stack>
             </Box>
           </Stack>

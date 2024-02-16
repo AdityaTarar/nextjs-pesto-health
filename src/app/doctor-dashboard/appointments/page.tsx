@@ -32,6 +32,7 @@ const page = () => {
   const videoConferenceDetails = useSelector(
     (state: any) => state?.appointmentData?.videoConferenceDetails?.data
   );
+
   useEffect(() => {
     fetchAppointments();
   }, [userDetails]);
@@ -48,6 +49,8 @@ const page = () => {
       console.error("Error fetching appointments:", error);
     }
   };
+  console.log("upcommingAppointments", upcommingAppointments);
+
   useEffect(() => {
     if (upcommingAppointments?.status === 200) {
       setPastAppointmentList(upcommingAppointments?.data?.pastAppointments);

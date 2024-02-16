@@ -77,6 +77,8 @@ export default function Page() {
     // ).toString();
 
     dispatch(patientLoginAction({ formData: formData }));
+  };
+  useEffect(() => {
     if (authState?.user?.status === 200) {
       _startGlobalNavigation();
       setCookie("isAuthenticated", "true");
@@ -85,12 +87,11 @@ export default function Page() {
       setCookie("access_token", authState?.user?.data?.token);
       _authenticate(authState?.user?.data, "patient");
       router.replace("/patient-home");
-
       setLoading(false);
     } else {
       setLoading(false);
     }
-  };
+  }, [authState, router]);
 
   return (
     <>

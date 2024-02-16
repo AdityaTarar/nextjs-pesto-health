@@ -15,8 +15,7 @@ API_CLIENT.interceptors.request.use(
 
     const token = localStorage.getItem("access_token")?.replace(/^"|"$/g, '');
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    config.headers['x-access-token'] = token
-      ;
+    config.headers['x-access-token'] = token;
     return config;
   },
   (error) => {
@@ -37,7 +36,7 @@ API_CLIENT.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem("refresh_token");
-      const response = await axios.post('http://localhost:3001/api/auth/refreshToken', { refreshToken });
+      const response = await axios.post('https://node-pesto-health.onrender.com/api/auth/refreshToken', { refreshToken });
       const newAccessToken = response.data.accessToken;
       localStorage.setItem("access_token", newAccessToken);
       Cookies.set("access_token", newAccessToken, { expires: 1 / 720 });

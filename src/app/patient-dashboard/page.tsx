@@ -297,6 +297,7 @@ const page = () => {
         </Box>
       </SimpleGrid>
       <VitalsForm
+        fromDashboard
         isOpen={isOpen}
         onClose={onClose}
         handleUpdateVitals={(data: any) => handleUpdateVitals(data)}

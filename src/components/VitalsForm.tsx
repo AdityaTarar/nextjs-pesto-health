@@ -19,6 +19,7 @@ const VitalsForm = ({
   onClose,
   handleUpdateVitals,
   handleJoinConsultaion,
+  fromDashboard,
 }: any) => {
   const [vitals, SetVitalsForm] = useState({
     height: 0,
@@ -160,14 +161,23 @@ const VitalsForm = ({
           </HStack>
         </ModalBody>
         <ModalFooter>
-          <HStack>
+          {fromDashboard ? (
             <Button onClick={() => handleUpdateVitals(vitals)}>
-              Update & Join
+              Update Vitals
             </Button>
-            <Button variant={"outline"} onClick={() => handleJoinConsultaion()}>
-              Skip & Join
-            </Button>
-          </HStack>
+          ) : (
+            <HStack>
+              <Button onClick={() => handleUpdateVitals(vitals)}>
+                Update & Join
+              </Button>
+              <Button
+                variant={"outline"}
+                onClick={() => handleJoinConsultaion()}
+              >
+                Skip & Join
+              </Button>
+            </HStack>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

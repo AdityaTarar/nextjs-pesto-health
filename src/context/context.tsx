@@ -82,7 +82,6 @@ export default function Store(props: any) {
     localStorage.setItem("user_details", JSON.stringify(params?.data));
     localStorage.setItem("access_token", JSON.stringify(params?.token));
     localStorage.setItem("refresh_token", params?.refreshToken);
-
     setUserType(userType);
     setUserDetails(params?.data);
     setToken(params?.token);
@@ -101,6 +100,7 @@ export default function Store(props: any) {
     setIsAuthenticated(false);
     setRole("");
     setRefreshToken(null);
+    setUserType("");
     deleteCookie("isAuthenticated");
     deleteCookie("user_type");
     deleteCookie("user_details");

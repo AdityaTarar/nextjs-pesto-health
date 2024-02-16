@@ -18,7 +18,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import doctorSvg from "../../../../../public/images/doctor.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,7 +42,8 @@ export default function Page() {
   const doctorAuth = useSelector((state: any) => state?.doctorAuth);
 
   const authContext: any = useContext(CTX);
-  const { _authenticate } = authContext;
+  const { _authenticate, _startGlobalNavigation, _stopGlobalNavigation } =
+    authContext;
   const [show, setShow] = React.useState(false);
   const [formErrors, setFormErrors] = useState({
     email: "",
@@ -71,16 +72,18 @@ export default function Page() {
       return;
     }
     await dispatch(doctorLoginAction(formData));
-
+  };
+  useEffect(() => {
     if (doctorAuth?.user?.status === 200) {
+      _startGlobalNavigation();
       router.replace("/doctor-dashboard");
       setCookie("isAuthenticated", "true");
       setCookie("user_type", "doctor");
       setCookie("user_details", doctorAuth?.user?.data?.data);
       setCookie("access_token", doctorAuth?.user?.data?.token);
-      _authenticate(doctorAuth?.user?.data, "patient");
+      _authenticate(doctorAuth?.user?.data, "doctor");
     }
-  };
+  }, [doctorAuth, router]);
   return (
     <SimpleGrid gap={8} h={"100vh"} dir="row" columns={{ sm: 1, md: 2 }} p={8}>
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>

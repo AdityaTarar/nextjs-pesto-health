@@ -44,7 +44,7 @@ function Page() {
   const currentDate = dayjs();
   const { isOpen, onOpen, onClose }: any = useDisclosure();
   const { userDetails, _meetingDetails }: any = authContext;
-  const [upcommingAppointments, setUpcommingAppointments] = useState([]);
+  // const [upcommingAppointments, setUpcommingAppointments] = useState([]);
   const [date, setDate]: any = useState();
   const [startTime, onChangeStartTime]: any = useState("09:00");
   const [endTime, onChangeEndTime]: any = useState("12:00");
@@ -61,6 +61,12 @@ function Page() {
   const doctorsAvailability = useSelector(
     (state: any) => state?.appointmentData?.doctorsAvailability?.data
   );
+  const upcommingAppointments = useSelector(
+    (state: any) =>
+      state?.doctorAppointmentData?.myUpcomingAppointment?.data?.data
+  );
+  console.log("upcommingAppointments", upcommingAppointments);
+
   const handleGetUpcommingAppointment = async () => {
     await dispatch(
       getMyUpcommingAppointmentAction({
@@ -340,7 +346,7 @@ function Page() {
             <Tabs>
               <TabList>
                 <Tab w={"100%"}>Available</Tab>
-                <Tab w={"100%"}>Booked</Tab>
+                <Tab w={"100%"}>Update Slots</Tab>
               </TabList>
 
               <TabPanels>

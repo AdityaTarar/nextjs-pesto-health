@@ -67,16 +67,16 @@ const AppointmentDetails = ({
             {appointmentDetails?.onlineConsultation && (
               <Button
                 onClick={() => handleJoin(appointmentDetails?._id)}
-                isDisabled={
-                  appointmentDetails?.status === "cancelled"
-                    ? true
-                    : joinConsultaionButtonEnabled(
-                        appointmentDetails?.date,
-                        appointmentDetails?.time
-                      )
-                    ? false
-                    : true
-                }
+                // isDisabled={
+                //   appointmentDetails?.status === "cancelled"
+                //     ? true
+                //     : joinConsultaionButtonEnabled(
+                //         appointmentDetails?.date,
+                //         appointmentDetails?.time
+                //       )
+                //     ? false
+                //     : true
+                // }
               >
                 Join
               </Button>
