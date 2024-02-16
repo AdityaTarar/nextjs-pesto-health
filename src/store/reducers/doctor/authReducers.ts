@@ -8,7 +8,8 @@ import {
   DOCTOR_REGISTER_SUCCESS,
   DOCTOR_REGISTER_FAILURE,
   HEALTHCARE_LOGOUT,
-  AuthState
+  AuthState,
+  CLEAR_STATE
 } from '../../types/doctors/authTypes';
 const initialState = {
   user: null,
@@ -47,6 +48,10 @@ export const authDoctorReducer = (state = initialState, action: any) => {
         loading: false,
       };
     case HEALTHCARE_LOGOUT:
+      return {
+        ...initialState,
+      };
+    case CLEAR_STATE:
       return {
         ...initialState,
       };

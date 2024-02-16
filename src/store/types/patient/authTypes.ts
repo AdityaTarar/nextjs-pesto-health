@@ -9,6 +9,7 @@ export const HEALTHCARE_LOGOUT = 'HEALTHCARE_LOGOUT';
 export const UPDATE_Patient_PROFILE_REQUEST = 'UPDATE_Patient_PROFILE_REQUEST';
 export const UPDATE_Patient_PROFILE_SUCCESS = 'UPDATE_Patient_PROFILE_SUCCESS';
 export const UPDATE_Patient_PROFILE_FAILURE = 'UPDATE_Patient_PROFILE_FAILURE';
+export const CLEAR_STATE = 'CLEAR_STATE';
 
 // State interface
 export interface AuthState {

@@ -11,7 +11,8 @@ import {
   UPDATE_Patient_PROFILE_FAILURE,
   UPDATE_Patient_PROFILE_REQUEST,
   UPDATE_Patient_PROFILE_SUCCESS,
-  AuthState
+  AuthState,
+  CLEAR_STATE
 } from '../../types/patient/authTypes';
 import { loginUser, registerPatientService, updatePatientProfileService } from '@/store/services/patients/authServices';
 
@@ -64,6 +65,11 @@ export const updatePatientProfileAction = (credentials: any) => async (dispatch:
       type: UPDATE_Patient_PROFILE_FAILURE,
     });
   }
+};
+export const clearStateAction = () => async (dispatch: any) => {
+  dispatch({
+    type: CLEAR_STATE,
+  });
 };
 
 // Logout action

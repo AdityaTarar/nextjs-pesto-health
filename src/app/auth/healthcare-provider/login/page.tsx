@@ -28,7 +28,10 @@ import { LoginUserState } from "@/store/interface/patients/authInterface";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { CTX } from "@/context/context";
 import { setCookie } from "cookies-next";
-import { doctorLoginAction } from "@/store/actions/doctor/authActions";
+import {
+  clearStateAction,
+  doctorLoginAction,
+} from "@/store/actions/doctor/authActions";
 
 export default function Page() {
   const toast = useToast();
@@ -90,6 +93,9 @@ export default function Page() {
       setCookie("access_token", doctorAuth?.user?.data?.token);
       _authenticate(doctorAuth?.user?.data, "doctor");
     }
+    return () => {
+      dispatch(clearStateAction());
+    };
   }, [doctorAuth, router]);
   return (
     <SimpleGrid gap={8} h={"100vh"} dir="row" columns={{ sm: 1, md: 2 }} p={8}>

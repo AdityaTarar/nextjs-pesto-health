@@ -25,7 +25,10 @@ import { LoginUserState } from "@/store/interface/patients/authInterface";
 import { setCookie } from "cookies-next";
 import { CTX } from "@/context/context";
 import LoadingBackdrop from "@/components/Loader";
-import { patientLoginAction } from "@/store/actions/patient/authActions";
+import {
+  clearStateAction,
+  patientLoginAction,
+} from "@/store/actions/patient/authActions";
 // var CryptoJS = require("crypto-js");
 import { useToast } from "@chakra-ui/react";
 export default function Page() {
@@ -98,6 +101,9 @@ export default function Page() {
     } else {
       setLoading(false);
     }
+    return () => {
+      dispatch(clearStateAction());
+    };
   }, [authState, router]);
 
   return (

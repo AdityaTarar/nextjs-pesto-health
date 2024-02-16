@@ -9,7 +9,8 @@ import {
   DOCTOR_REGISTER_SUCCESS,
   DOCTOR_REGISTER_FAILURE,
   HEALTHCARE_LOGOUT,
-  AuthState
+  AuthState,
+  CLEAR_STATE
 } from '../../types/doctors/authTypes';
 
 export const doctorLoginAction = (credentials: any) => async (dispatch: any) => {
@@ -67,3 +68,8 @@ export const doctorRegisterAction = (credentials: any) => async (dispatch: any) 
 export const healthcareLogout = () => ({
   type: HEALTHCARE_LOGOUT,
 });
+export const clearStateAction = () => async (dispatch: any) => {
+  dispatch({
+    type: CLEAR_STATE,
+  });
+};
