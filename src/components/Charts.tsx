@@ -21,7 +21,7 @@ const Charts = ({ chartData, chartType, latestVital }: any) => {
     <Card p={0}>
       <CardHeader pb={0}>
         <HStack>
-          <MdBloodtype size={"24px"} />
+          <MdBloodtype size={"24px"} color={COLORS.primary} />
           <Text fontSize={"large"} fontWeight={"400"}>
             {chartType === "heartRate"
               ? "Heart Rate"

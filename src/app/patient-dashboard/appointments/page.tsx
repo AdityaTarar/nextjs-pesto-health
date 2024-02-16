@@ -3,6 +3,7 @@ import AppointmentCard from "@/components/AppointmentCard";
 import { CTX } from "@/context/context";
 import {
   Box,
+  HStack,
   Tab,
   TabList,
   TabPanel,
@@ -29,6 +30,8 @@ import { getMedicationsByAppointmentIdAction } from "@/store/actions/patient/med
 import { updateVitalsAction } from "@/store/actions/patient/vitalActions";
 import AppointmentModal from "@/components/AppointmentModal";
 import { fetchDoctorDetailsAction } from "@/store/actions/commonActions";
+import { COLORS } from "@/app/colors";
+import Link from "next/link";
 
 const page = () => {
   const dispatch: any = useDispatch();
@@ -160,7 +163,7 @@ const page = () => {
     await dispatch(postRecheduleAppointmentAction(data));
   };
   useEffect(() => {
-    if (cancelAppointment?.data?.status === 200) {
+    if (cancelAppointment?.status === 200) {
       fetchAppointments();
     }
   }, [cancelAppointment]);
@@ -176,7 +179,7 @@ const page = () => {
         </TabList>
         <TabPanels>
           <TabPanel maxH={"100vh"} overflowY={"scroll"}>
-            {appointmentList?.length > 0 &&
+            {appointmentList?.length > 0 ? (
               appointmentList?.map((item: any) => {
                 return (
                   <AppointmentCard
@@ -187,7 +190,19 @@ const page = () => {
                     handleRechedule={handleRechedule}
                   />
                 );
-              })}
+              })
+            ) : (
+              <HStack>
+                <Text textAlign={"center"} color={COLORS.error} fontSize={"md"}>
+                  There are no upcomming appointments.
+                </Text>
+                <Link href={"/patient-home/bookappointment"}>
+                  <Text color={COLORS.primary} textDecoration={"underline"}>
+                    Book Appointment
+                  </Text>
+                </Link>
+              </HStack>
+            )}
           </TabPanel>
           <TabPanel maxH={"100vh"} overflowY={"scroll"}>
             {pastappointmentList?.length > 0 ? (
