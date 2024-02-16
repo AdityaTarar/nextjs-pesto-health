@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import registergSvg from "../../../../../public/images/register.svg";
@@ -19,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { patientRegisterAction } from "@/store/actions/patient/authActions";
 export default function Page() {
+  const toast = useToast();
   const {
     register,
     handleSubmit,
@@ -43,7 +45,12 @@ export default function Page() {
     return passwordRegex.test(password);
   };
   useEffect(() => {
-    if (userRegister?.registerUser?.status) {
+    if (userRegister?.registerUser?.status === 200) {
+      toast({
+        title: "Successfull Registration",
+        status: "success",
+        duration: 3000,
+      });
       router.replace("/auth/patient/login");
     }
   }, [userRegister]);

@@ -31,6 +31,8 @@ import { setCookie } from "cookies-next";
 import { doctorLoginAction } from "@/store/actions/doctor/authActions";
 
 export default function Page() {
+  const toast = useToast();
+
   const router = useRouter();
   const dispatch: any = useDispatch();
   const [formData, setFormData] = useState<LoginUserState>({
@@ -75,6 +77,11 @@ export default function Page() {
   };
   useEffect(() => {
     if (doctorAuth?.user?.status === 200) {
+      toast({
+        title: "Successfull login",
+        status: "success",
+        duration: 3000,
+      });
       _startGlobalNavigation();
       router.replace("/doctor-dashboard");
       setCookie("isAuthenticated", "true");

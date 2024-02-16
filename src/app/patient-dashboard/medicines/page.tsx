@@ -28,7 +28,8 @@ import {
 import dayjs from "dayjs";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 const page = () => {
   const dispatch: any = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -72,6 +73,46 @@ const page = () => {
     setSelectedMedicine(data);
     onOpen();
   };
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  const generatePrescriptionPDF = (prescription: any) => {
+    const docDefinition = {
+      content: [
+        { text: "Prescription", style: "header" },
+        { text: `Doctor: ${prescription.doctorName}`, bold: true },
+        {
+          text: `Date: ${new Date(
+            prescription.prescribedDate
+          ).toLocaleDateString()}`,
+        },
+        { text: "Medications:", margin: [0, 10, 0, 5] },
+        {
+          ul: prescription.medication.map(
+            (med: { medicine: any; intake: any; intakeType: any }) =>
+              `${med.medicine}, ${med.intake} (${med.intakeType})`
+          ),
+        },
+        {
+          text: `Course Duration: ${prescription.courseDuration} days`,
+          margin: [0, 10, 0, 10],
+        },
+        { text: "Symptoms:", margin: [0, 5, 0, 5] },
+        { text: `${prescription.symptons}` },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 20],
+        },
+      },
+    };
+
+    return docDefinition;
+  };
+  const downloadPrescriptionPDF = (prescriptions: any[]) => {
+    const docDefinition: any = generatePrescriptionPDF(prescriptions);
+    pdfMake.createPdf(docDefinition).download("prescription.pdf");
+  };
   return (
     <>
       <Box p={2} pt={4} overflow={"scroll"}>
@@ -87,6 +128,7 @@ const page = () => {
                       <Th>Medicine</Th>
                       <Th>Prescribed Date</Th>
                       <Th>Days Remaining</Th>
+                      <Th>PDF</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -114,6 +156,16 @@ const page = () => {
                             prescription?.prescribedDate,
                             prescription?.courseDuration
                           )}
+                        </Td>
+                        <Td>
+                          <Link
+                            onClick={() =>
+                              downloadPrescriptionPDF(prescription)
+                            }
+                            color={COLORS.primary}
+                          >
+                            Download
+                          </Link>
                         </Td>
                       </Tr>
                     ))}

@@ -10,8 +10,9 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import registergSvg from "../../../../../public/images/register.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,8 +21,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { COLORS } from "@/app/colors";
 import { medicalSpecializations } from "@/utils/medicalSpecializations";
 import { useRouter } from "next/navigation";
-import { healthcareRegister } from "@/store/slices/healthcare/authSlice";
+import { doctorRegisterAction } from "@/store/actions/doctor/authActions";
 export default function Page() {
+  const toast = useToast();
+
   const {
     register,
     control,
@@ -30,8 +33,8 @@ export default function Page() {
   }: any = useForm();
   const dispatch: any = useDispatch();
   const router = useRouter();
-  const isRegistered = useSelector(
-    (state: any) => state?.doctorAuth?.isRegistered
+  const registerUser = useSelector(
+    (state: any) => state?.doctorAuth?.registerUser
   );
   const [date, setDate] = useState(new Date());
   const [step, setStep] = useState(1);
@@ -51,16 +54,22 @@ export default function Page() {
       onlineConsultation: appointmentType.onlineConsultation,
     };
     if (step === 2) {
-      const res = await dispatch(healthcareRegister(formData)).unwrap();
-
-      if (res?.status === 200) {
-        setStep(1);
-        router.push("/auth/healthcare-provider/login");
-      }
+      await dispatch(doctorRegisterAction(formData));
     } else {
       setStep(2);
     }
   };
+  useEffect(() => {
+    if (registerUser?.status === 200) {
+      toast({
+        title: "Successfull Registration",
+        status: "success",
+        duration: 3000,
+      });
+      setStep(1);
+      router.push("/auth/healthcare-provider/login");
+    }
+  }, [registerUser]);
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 

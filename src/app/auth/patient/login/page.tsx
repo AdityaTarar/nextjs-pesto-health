@@ -27,8 +27,10 @@ import { CTX } from "@/context/context";
 import LoadingBackdrop from "@/components/Loader";
 import { patientLoginAction } from "@/store/actions/patient/authActions";
 // var CryptoJS = require("crypto-js");
-
+import { useToast } from "@chakra-ui/react";
 export default function Page() {
+  const toast = useToast();
+
   const router = useRouter();
   const dispatch: any = useDispatch();
   const authContext: any = useContext(CTX);
@@ -80,6 +82,11 @@ export default function Page() {
   };
   useEffect(() => {
     if (authState?.user?.status === 200) {
+      toast({
+        title: "Successfull login",
+        status: "success",
+        duration: 3000,
+      });
       _startGlobalNavigation();
       setCookie("isAuthenticated", "true");
       setCookie("user_type", "patient");
