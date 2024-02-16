@@ -17,3 +17,19 @@ export const fetchDoctorDetailsService: any = async (credentials: any) => {
     throw error;
   }
 };
+export const sendOTPService: any = async (credentials: any) => {
+  try {
+    const response = await API_CLIENT.post(API.sendOTP, credentials);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const forgotPassswordService: any = async (credentials: any) => {
+  try {
+    const response = await API_CLIENT.post(API.forgotPassword, credentials);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

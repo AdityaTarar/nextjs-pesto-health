@@ -23,5 +23,7 @@ export const API: any = {
   fetchDoctorDetails: '/api/doctor/fetchDoctorDetails',
   refreshToken: '/api/auth/refreshToken',
   getPaymentHistory: '/api/payment/fetchPaymentHistory',
+  sendOTP: '/api/forgotPasssword/sendOtp',
+  forgotPassword: '/api/auth/forgotPassword',
 
 }

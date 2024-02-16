@@ -177,7 +177,10 @@ export default function Page() {
               {formErrors.password}
             </FormErrorMessage>
           </FormControl>
-          <Link href={"/"} style={{ marginBottom: 8 }}>
+          <Link
+            href={"/auth/healthcare-provider/forgot-password"}
+            style={{ marginBottom: 8 }}
+          >
             Forgot Password ?
           </Link>
           <Button variant={"solid"} onClick={handleSubmit}>

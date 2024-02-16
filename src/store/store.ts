@@ -22,7 +22,7 @@ const store = configureStore({
     medicationData: medicationPatientReducer,
     vitalsData: vitalsReducers,
     doctorAuth: authDoctorReducer,
-    paymentsData: PaymentsReducer,
+    commonReducerData: PaymentsReducer,
     profileData: doctorProfileReducer,
     loader: loaderReducer, // Adjusted key to match slice name
     doctorAppointment: docotrAppointmentSlice,

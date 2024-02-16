@@ -21,7 +21,7 @@ const page = () => {
   const { userDetails, userType }: any = authContext;
   const dispatch: any = useDispatch();
   const paymentHistory = useSelector(
-    (state: any) => state.paymentsData?.paymentHistory?.data?.data
+    (state: any) => state.commonReducerData?.paymentHistory?.data?.data
   );
   useEffect(() => {
     dispatch(

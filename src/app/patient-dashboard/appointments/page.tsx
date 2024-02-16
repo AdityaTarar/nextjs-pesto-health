@@ -70,7 +70,7 @@ const page = () => {
     (state: any) => state?.vitalsData?.updateVitals
   );
   const doctorDetails = useSelector(
-    (state: any) => state?.paymentsData?.doctorDetails?.data?.data
+    (state: any) => state?.commonReducerData?.doctorDetails?.data?.data
   );
   console.log("doctorDetails", doctorDetails);
   useEffect(() => {
