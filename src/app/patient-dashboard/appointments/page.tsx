@@ -77,6 +77,7 @@ const page = () => {
   );
   console.log("doctorDetails", doctorDetails);
   useEffect(() => {
+    setLoading(true);
     fetchAppointments();
   }, [userDetails, appointmentReschedule]);
 
@@ -91,6 +92,7 @@ const page = () => {
     } catch (error) {
       console.error("Error fetching appointments:", error);
     }
+    setLoading(false);
   };
   useEffect(() => {
     if (upcommingAppointments?.status === 200) {
@@ -122,8 +124,6 @@ const page = () => {
     );
   };
   useEffect(() => {
-    console.log("videoConferenceDetails", videoConferenceDetails);
-
     if (videoConferenceDetails?.status === 200) {
       setLoading(false);
       router.push(`/meeting?${videoConferenceDetails?.data?.meetingInfo?.id}`);
@@ -155,15 +155,16 @@ const page = () => {
   };
   const handleRechedule = async (currentAppointment: any) => {
     setSelectedApppointment(currentAppointment);
-    console.log("currentAppointment", currentAppointment);
-    await dispatch(fetchDoctorDetailsAction(cancelAppointment?.doctorId));
+    await dispatch(fetchDoctorDetailsAction(currentAppointment?.doctorId));
     recheduleModalOnOpen();
   };
   const handleRecheduleAppointment = async (data: any) => {
     await dispatch(postRecheduleAppointmentAction(data));
+    recheduleModalOnClose();
   };
   useEffect(() => {
     if (cancelAppointment?.status === 200) {
+      setLoading(true);
       fetchAppointments();
     }
   }, [cancelAppointment]);
