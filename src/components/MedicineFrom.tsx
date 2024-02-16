@@ -12,14 +12,13 @@ import {
   Box,
   IconButton,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import { COLORS } from "@/app/colors";
 import { IoMdAddCircle } from "react-icons/io";
 import { CTX } from "@/context/context";
 import { useDispatch } from "react-redux";
 import dayjs from "dayjs";
-import { addMeddication } from "@/store/slices/healthcare/appointmentSlice";
+import { postAddMedicationAction } from "@/store/actions/doctor/appointmentActions";
 
 const MedicinesForm = () => {
   const dispatch: any = useDispatch();
@@ -74,8 +73,7 @@ const MedicinesForm = () => {
       prescribedDate: dayjs().toString(),
       courseDuration: formData.courseDuration,
     };
-    const res = await dispatch(addMeddication(payload));
-    console.log("handleSumbitMedicines", res);
+    await dispatch(postAddMedicationAction(payload));
   };
   return (
     <VStack spacing={4} align="stretch" px={4}>

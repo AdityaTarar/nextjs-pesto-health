@@ -2,6 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authPatientReducer } from './reducers/patient/authReducers';
 import { authDoctorReducer } from './reducers/doctor/authReducers'
+import { doctorProfileReducer } from './reducers/doctor/doctorProfileReducer'
 import { appointmentPatientReducer } from './reducers/patient/appointmentReducers';
 import { appointmentDoctorReducer } from './reducers/doctor/appointmentDoctorReducer';
 import { medicationPatientReducer } from './reducers/patient/medicationReducer';
@@ -22,6 +23,7 @@ const store = configureStore({
     vitalsData: vitalsReducers,
     doctorAuth: authDoctorReducer,
     paymentsData: PaymentsReducer,
+    profileData: doctorProfileReducer,
     loader: loaderReducer, // Adjusted key to match slice name
     doctorAppointment: docotrAppointmentSlice,
     doctorProfile: doctorProfileSlice,

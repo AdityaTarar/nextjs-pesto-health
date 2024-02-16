@@ -37,6 +37,7 @@ import {
   getVideoConferenceDetailsAction,
 } from "@/store/actions/patient/appointmentActions";
 import { getMyUpcommingAppointmentAction } from "@/store/actions/doctor/appointmentActions";
+import { postCreateAvailabilty } from "@/store/actions/doctor/profileActions";
 function Page() {
   const router = useRouter();
   const dispatch: any = useDispatch();
@@ -61,6 +62,11 @@ function Page() {
   const doctorsAvailability = useSelector(
     (state: any) => state?.appointmentData?.doctorsAvailability?.data
   );
+  const createAvailabilty = useSelector(
+    (state: any) => state?.profileData?.createAvailability?.data
+  );
+  console.log("createAvailabilty", createAvailabilty);
+
   const upcommingAppointments = useSelector(
     (state: any) =>
       state?.doctorAppointmentData?.myUpcomingAppointment?.data?.data
@@ -150,18 +156,18 @@ function Page() {
       alert("Duration can not be less or equal to zero");
       return;
     }
-    // const res = await dispatch(createAvailabilityActionz(payload));
-
-    // if (res?.payload?.status === 200) {
-    //   setLoading(false);
-    //   fetchTimeSlots();
-    // } else {
-    //   setLoading(false);
-    //   alert("Something went wrong");
-    // }
+    await dispatch(postCreateAvailabilty(payload));
   };
   console.log("doctorsAvailability", doctorsAvailability);
-
+  useEffect(() => {
+    if (createAvailabilty?.status === 200) {
+      setLoading(false);
+      fetchTimeSlots();
+    } else {
+      setLoading(false);
+      alert("Something went wrong");
+    }
+  }, [router, createAvailabilty]);
   return (
     <>
       {loading && <LoadingBackdrop />}
