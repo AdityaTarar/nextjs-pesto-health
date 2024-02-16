@@ -101,11 +101,12 @@ export default function Page() {
     } else {
       setLoading(false);
     }
+  }, [authState, router]);
+  useEffect(() => {
     return () => {
       dispatch(clearStateAction());
     };
-  }, [authState, router]);
-
+  }, []);
   return (
     <>
       {authState?.loading && <LoadingBackdrop />}

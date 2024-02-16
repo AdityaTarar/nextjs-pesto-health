@@ -93,10 +93,12 @@ export default function Page() {
       setCookie("access_token", doctorAuth?.user?.data?.token);
       _authenticate(doctorAuth?.user?.data, "doctor");
     }
+  }, [doctorAuth, router]);
+  useEffect(() => {
     return () => {
       dispatch(clearStateAction());
     };
-  }, [doctorAuth, router]);
+  }, []);
   return (
     <SimpleGrid gap={8} h={"100vh"} dir="row" columns={{ sm: 1, md: 2 }} p={8}>
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
