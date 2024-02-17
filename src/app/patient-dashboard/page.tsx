@@ -303,7 +303,7 @@ const page = () => {
                   mb={4}
                 >
                   <Text color={COLORS.error} fontSize={"sm"}>
-                    There is no upcomming appointments.
+                    There are no upcomming appointments.
                   </Text>
                 </Box>
               )}
