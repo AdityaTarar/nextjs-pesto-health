@@ -16,3 +16,11 @@ export const addMeddicationService = async (credentials: any) => {
     throw error;
   }
 };
+export const completeAppointmentService = async (credentials: any) => {
+  try {
+    const response = await API_CLIENT.post(API.completeAppointment, credentials);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

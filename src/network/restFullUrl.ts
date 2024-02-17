@@ -25,5 +25,6 @@ export const API: any = {
   getPaymentHistory: '/api/payment/fetchPaymentHistory',
   sendOTP: '/api/forgotPasssword/sendOtp',
   forgotPassword: '/api/auth/forgotPassword',
+  completeAppointment: '/api/doctor/completeAppointment'
 
 }

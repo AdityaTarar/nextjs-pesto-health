@@ -1,4 +1,4 @@
-import { addMeddicationService, getMyUpcommingAppointmentService } from "@/store/services/healthcare/appointmentServices";
+import { addMeddicationService, completeAppointmentService, getMyUpcommingAppointmentService } from "@/store/services/healthcare/appointmentServices";
 import { AppointmentActionTypes } from "@/store/types/doctors/appointmentsTypes";
 import { Dispatch } from "redux";
 
@@ -31,6 +31,22 @@ export const postAddMedicationAction = (credentials: any) => async (dispatch: Di
   } catch (error) {
     dispatch({
       type: AppointmentActionTypes.DOCTOR_ADD_MEDICATION_FAILURE,
+    });
+  }
+};
+export const postCompleteAppointmentAction = (credentials: any) => async (dispatch: Dispatch) => {
+  dispatch({
+    type: AppointmentActionTypes.DOCTOR_COMPELTE_APPOINTMENT_REQUEST,
+  });
+  try {
+    const user = await completeAppointmentService(credentials);
+    dispatch({
+      type: AppointmentActionTypes.DOCTOR_COMPELTE_APPOINTMENT_SUCCESS,
+      payload: user,
+    });
+  } catch (error) {
+    dispatch({
+      type: AppointmentActionTypes.DOCTOR_COMPELTE_APPOINTMENT_FAILURE,
     });
   }
 };

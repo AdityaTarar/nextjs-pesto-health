@@ -21,9 +21,14 @@ import dayjs from "dayjs";
 import {
   clearState,
   postAddMedicationAction,
+  postCompleteAppointmentAction,
 } from "@/store/actions/doctor/appointmentActions";
 import { useRouter } from "next/navigation";
 import LoadingBackdrop from "./Loader";
+import {
+  clearAppointmentDetails,
+  clearVideoConferenceDetails,
+} from "@/store/actions/patient/appointmentActions";
 
 const MedicinesForm = () => {
   const dispatch: any = useDispatch();
@@ -51,7 +56,10 @@ const MedicinesForm = () => {
   const prescribedMedication = useSelector(
     (state: any) => state?.doctorAppointmentData?.addMedication
   );
-  console.log("prescribedMedication", prescribedMedication);
+  const completeAppointmentData = useSelector(
+    (state: any) => state?.doctorAppointmentData?.completeAppointment
+  );
+  console.log("completeAppointment", prescribedMedication);
 
   const router = useRouter();
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
@@ -93,12 +101,24 @@ const MedicinesForm = () => {
   };
   useEffect(() => {
     if (prescribedMedication?.data?.status === 200) {
-      _startGlobalNavigation();
-      dispatch(clearState());
-      router.replace("/doctor-dashboard");
+      completeAppointment();
     }
   }, [prescribedMedication]);
-  console.log("prescribedMedication", prescribedMedication);
+  const completeAppointment = async () => {
+    await dispatch(
+      postCompleteAppointmentAction({ appointmentId: appointmentId })
+    );
+  };
+  useEffect(() => {
+    if (completeAppointmentData?.data?.status === 200) {
+      _startGlobalNavigation();
+      dispatch(clearState());
+      dispatch(clearVideoConferenceDetails());
+      dispatch(clearAppointmentDetails());
+      router.replace("/doctor-dashboard");
+    }
+  }, [completeAppointmentData]);
+  console.log("completeAppointmentData", completeAppointmentData);
 
   return (
     <VStack spacing={4} align="stretch" px={4}>
