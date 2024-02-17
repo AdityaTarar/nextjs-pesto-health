@@ -215,8 +215,10 @@ const page = () => {
           <Box p={4} borderRadius={20} bg={"rgba(108, 99, 255, 0.3)"}>
             <HStack gap={8} alignItems={"start"}>
               <Box bg={COLORS.primary} p={4} color={"white"} borderRadius={10}>
-                <Text fontSize={"xl"}>Body Mass Index(BMI)</Text>
-                <Text fontSize={"lg"} my={2} fontWeight={"700"}>
+                <Text fontSize={"xl"} color={"white"}>
+                  Body Mass Index(BMI)
+                </Text>
+                <Text fontSize={"lg"} my={2} fontWeight={"700"} color={"white"}>
                   {vitalsData?.length > 0 ? (
                     calculateBMI(
                       extractVitalProperty(vitalsData, "height")[0]?.height,
@@ -231,7 +233,7 @@ const page = () => {
                     </>
                   )}
                 </Text>
-                <Text fontSize={"md"}>
+                <Text fontSize={"md"} color={"white"}>
                   {vitalsData?.length > 0
                     ? calculateBMI(
                         extractVitalProperty(vitalsData, "height")[0]?.height,
@@ -270,7 +272,6 @@ const page = () => {
                       backgroundColor={
                         index === 0 ? COLORS.primary : "rgba(108, 99, 255, 0.5)"
                       }
-                      color={index === 0 ? "white" : COLORS.secondary}
                       borderRadius={20}
                       // boxShadow={" 0px 4px 32px 0px rgba(0, 0, 0, 0.10)"}
                       mb={4}
@@ -282,13 +283,22 @@ const page = () => {
                         name={items?.patientInfo?.full_name}
                         size={"sm"}
                       />
-                      <Text fontWeight={index === 0 ? "700" : "500"}>
+                      <Text
+                        fontWeight={index === 0 ? "700" : "500"}
+                        color={index === 0 ? "white" : COLORS.secondary}
+                      >
                         {items?.patientInfo?.full_name}
                       </Text>
-                      <Text fontWeight={index === 0 ? "700" : "500"}>
+                      <Text
+                        fontWeight={index === 0 ? "700" : "500"}
+                        color={index === 0 ? "white" : COLORS.secondary}
+                      >
                         {items?.time}
                       </Text>
-                      <Text fontWeight={index === 0 ? "700" : "500"}>
+                      <Text
+                        fontWeight={index === 0 ? "700" : "500"}
+                        color={index === 0 ? "white" : COLORS.secondary}
+                      >
                         {items?.onlineConsultation ? "Online" : "In Clinic"}
                       </Text>
                     </Stack>
