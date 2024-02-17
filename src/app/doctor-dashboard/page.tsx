@@ -353,7 +353,7 @@ function Page() {
               </TabList>
 
               <TabPanels>
-                <TabPanel maxHeight={"20vh"} overflowY={"scroll"}>
+                <TabPanel maxHeight={"50vh"} overflowY={"scroll"}>
                   <DoctorTimeSlots
                     selectedDate={selectedDate}
                     doctorsAvailability={doctorsAvailability}

@@ -219,7 +219,11 @@ function AppointmentModal({
                 <Box>
                   <Avatar
                     name="Dan Abrahmov"
-                    src="https://bit.ly/dan-abramov"
+                    src={
+                      additionalData?.gender === "male"
+                        ? "https://www.citizenshospitals.com/static/uploads/130789a4-764e-4ee3-88fe-68f9278452d6-1692966652977.png"
+                        : "https://img.freepik.com/premium-photo/indian-female-doctor-indian-nurse_714173-201.jpg"
+                    }
                     size={"xl"}
                   />
                 </Box>

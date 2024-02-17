@@ -34,8 +34,13 @@ function DoctorCard({ data, handleSelectedDoctor }: any) {
           maxW={{ base: "30%", sm: "250px" }}
           maxH={{ base: "120px", sm: "195px" }}
           src={
-            "https://www.citizenshospitals.com/static/uploads/130789a4-764e-4ee3-88fe-68f9278452d6-1692966652977.png"
+            data?.gender === "male"
+              ? "https://www.citizenshospitals.com/static/uploads/130789a4-764e-4ee3-88fe-68f9278452d6-1692966652977.png"
+              : "https://img.freepik.com/premium-photo/indian-female-doctor-indian-nurse_714173-201.jpg"
           }
+          // src={`https://xsgames.co/randomusers/assets/avatars/${data?.gender}/${
+          //   Math.floor(Math.random() * 100) + 1
+          // }.jpg`}
           alt="Caffe Latte"
           borderRadius={10}
         />
