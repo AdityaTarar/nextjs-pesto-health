@@ -37,7 +37,7 @@ import {
   getVideoConferenceDetailsAction,
 } from "@/store/actions/patient/appointmentActions";
 import { getMyUpcommingAppointmentAction } from "@/store/actions/doctor/appointmentActions";
-import { postCreateAvailabilty } from "@/store/actions/doctor/profileActions";
+import { postCreateAvailabiltyActions } from "@/store/actions/doctor/profileActions";
 function Page() {
   const router = useRouter();
   const dispatch: any = useDispatch();
@@ -156,7 +156,7 @@ function Page() {
       alert("Duration can not be less or equal to zero");
       return;
     }
-    await dispatch(postCreateAvailabilty(payload));
+    await dispatch(postCreateAvailabiltyActions(payload));
   };
   console.log("doctorsAvailability", doctorsAvailability);
   useEffect(() => {
@@ -165,7 +165,6 @@ function Page() {
       fetchTimeSlots();
     } else {
       setLoading(false);
-      alert("Something went wrong");
     }
   }, [router, createAvailabilty]);
   return (

@@ -2,7 +2,7 @@ import { postCreateAvailabiltyServices } from "@/store/services/healthcare/profi
 import { ProfileActionTypes } from "@/store/types/doctors/profileTypes";
 import { Dispatch } from "redux";
 
-export const postCreateAvailabilty = (credentials: any) => async (dispatch: Dispatch) => {
+export const postCreateAvailabiltyActions = (credentials: any) => async (dispatch: Dispatch) => {
   dispatch({
     type: ProfileActionTypes.DOCTOR_CREATE_AVAILABILITY_REQUEST,
   });
