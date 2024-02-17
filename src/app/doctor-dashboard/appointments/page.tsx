@@ -14,11 +14,12 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const page = () => {
+  const router = useRouter();
   const dispatch: any = useDispatch();
   const authContext: any = useContext(CTX);
   const { userDetails }: any = authContext;
@@ -57,7 +58,7 @@ const page = () => {
       setAppointmentList(upcommingAppointments?.data?.upcomingAppointments);
     }
   }, [upcommingAppointments]);
-  const handleJoinConsultaion = async () => {
+  const handleJoinConsultaion = async (appointmentId: any) => {
     await dispatch(
       getVideoConferenceDetailsAction({ appointmentId: appointmentId })
     );
