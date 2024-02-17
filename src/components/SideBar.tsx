@@ -20,9 +20,7 @@ const SideBar = () => {
   const { userType, _logout, _startGlobalNavigation } = authContext;
   const pathName = usePathname();
   const router = useRouter();
-  console.log("pathName", pathName);
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Box
       height={{ base: "auto", sm: "100vh" }}
@@ -133,20 +131,6 @@ const SideBar = () => {
                     }
                   />
                 ) : menu.id === 3 ? (
-                  <ImLab
-                    size={"24px"}
-                    color={
-                      pathName === menu.path ? COLORS.primary : COLORS.secondary
-                    }
-                  />
-                ) : menu.id === 4 ? (
-                  <GiMedicines
-                    size={"24px"}
-                    color={
-                      pathName === menu.path ? COLORS.primary : COLORS.secondary
-                    }
-                  />
-                ) : menu.id === 5 ? (
                   <HiCurrencyRupee
                     size={"24px"}
                     color={
