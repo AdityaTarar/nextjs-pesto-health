@@ -6,7 +6,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import L from "leaflet";
 
 const Map = () => {
-  const [location, setLocation]: any = useState([]);
+  const [location, setLocation]: any = useState([18.5787983, 73.7401555]);
 
   const position: any = [51.505, -0.09];
   useEffect(() => {

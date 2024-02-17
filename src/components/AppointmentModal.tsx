@@ -276,6 +276,7 @@ function AppointmentModal({
                         specialization: additionalData?.specialization,
                         address: additionalData?.address,
                         consultationFee: additionalData?.consultationFee,
+                        doctorGender: additionalData?.gender,
                       },
                     }}
                     color={COLORS.primary}

@@ -1,6 +1,14 @@
 "use client";
 import { COLORS } from "@/app/colors";
-import { Box, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  SimpleGrid,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
@@ -19,6 +27,8 @@ import { Link } from "@chakra-ui/next-js";
 export default function page({ searchParams }: any) {
   const dispatch: any = useDispatch();
   const router = useRouter();
+  console.log("searchParams", searchParams);
+  console.log("searchParamsId", searchParams?.id?.toString());
 
   const appointmentstatus = useSelector(
     (state: any) => state?.appointmentData?.appointmentStatus?.data?.data
@@ -58,6 +68,8 @@ export default function page({ searchParams }: any) {
     };
     await dispatch(postRecheduleAppointmentAction(payload));
   };
+  console.log("appointmentstatus", appointmentstatus);
+
   return (
     <SimpleGrid
       h={"100vh"}
@@ -98,24 +110,45 @@ export default function page({ searchParams }: any) {
         <Text fontSize={"lg"}>
           We have sent you an SMS and Email with the details.
         </Text>
-        <Stack gap={4} my={10}>
-          <Box>
-            <Text fontSize={"sm"}>Patient Name</Text>
-            <Text fontSize={"lg"}>
-              {appointmentstatus?.patientInfo?.full_name}
-            </Text>
-          </Box>
-          <Box>
-            <Text fontSize={"sm"}>Contact Number</Text>
-            <Text fontSize={"lg"}>
-              +91 {appointmentstatus?.patientInfo?.contact_number}
-            </Text>
-          </Box>
-          <Box>
-            <Text fontSize={"sm"}>Email</Text>
-            <Text fontSize={"lg"}>{appointmentstatus?.patientInfo?.email}</Text>
-          </Box>
-        </Stack>
+        <HStack my={10} gap={10}>
+          <VStack gap={4} alignItems={"left"}>
+            <Box>
+              <Text fontSize={"sm"}>Patient Name</Text>
+              <Text fontSize={"lg"}>
+                {appointmentstatus?.patientInfo?.full_name}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontSize={"sm"}>Contact Number</Text>
+              <Text fontSize={"lg"}>
+                +91 {appointmentstatus?.patientInfo?.contact_number}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontSize={"sm"}>Email</Text>
+              <Text fontSize={"lg"}>
+                {appointmentstatus?.patientInfo?.email}
+              </Text>
+            </Box>
+          </VStack>
+          <VStack gap={4} alignItems={"left"}>
+            <Box>
+              <Text fontSize={"sm"}>Doctor Name</Text>
+              <Text fontSize={"lg"}>
+                {appointmentstatus?.doctorDetails?.first_name}{" "}
+                {appointmentstatus?.doctorDetails?.last_name}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontSize={"sm"}>Date</Text>
+              <Text fontSize={"lg"}>{appointmentstatus?.date}</Text>
+            </Box>
+            <Box>
+              <Text fontSize={"sm"}>Time</Text>
+              <Text fontSize={"lg"}>{appointmentstatus?.time}</Text>
+            </Box>
+          </VStack>
+        </HStack>
         {/* {appointmentstatus?.status === "cancelled" ? (
           <Link
             color={COLORS.primary}
