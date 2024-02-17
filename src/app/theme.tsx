@@ -66,10 +66,10 @@ const theme = extendTheme({
         variant: "backgroundFix",
       },
     },
-  },
-  Text: {
-    baseStyle: {
-      color: "red",
+    Text: {
+      baseStyle: {
+        color: COLORS.secondary,
+      },
     },
   },
 });
