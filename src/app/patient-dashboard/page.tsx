@@ -45,20 +45,20 @@ const page = () => {
   const vitalsData = useSelector(
     (state: any) => state?.vitalsData?.allVitalsByPatient?.data
   );
-  console.log("upcommingAppointments", upcommingAppointments);
 
   useEffect(() => {
     if (userDetails?._id !== undefined) {
       handleGetVitals();
       fetchAppointments();
     }
-  }, [userDetails?._id]);
+  }, [userDetails?._id, updatedVitals]);
   const handleUpdateVitals = async (formdata: any) => {
     const payload = {
       patientId: userDetails?._id,
       patientVitals: { ...formdata, date: dayjs().toISOString() },
     };
     await dispatch(updateVitalsAction(payload));
+    onClose();
   };
   const handleGetVitals = async () => {
     await dispatch(

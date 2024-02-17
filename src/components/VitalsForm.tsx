@@ -41,7 +41,7 @@ const VitalsForm = ({
         <ModalBody>
           <HStack>
             <FormControl>
-              <FormLabel>Height</FormLabel>
+              <FormLabel>Height(inch)</FormLabel>
               <Input
                 placeholder="inch"
                 type="number"
@@ -55,7 +55,7 @@ const VitalsForm = ({
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Weight</FormLabel>
+              <FormLabel>Weight(kg)</FormLabel>
               <Input
                 type="number"
                 placeholder="kg"
@@ -71,7 +71,7 @@ const VitalsForm = ({
           </HStack>
           <HStack>
             <FormControl>
-              <FormLabel>High BP</FormLabel>
+              <FormLabel>High BP(bpm)</FormLabel>
               <Input
                 type="number"
                 placeholder="bpm"
@@ -85,7 +85,7 @@ const VitalsForm = ({
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Low BP</FormLabel>
+              <FormLabel>Low BP(bpm)</FormLabel>
               <Input
                 type="number"
                 placeholder="bpm"
@@ -115,7 +115,7 @@ const VitalsForm = ({
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Body temprature</FormLabel>
+              <FormLabel>Body temprature(f)</FormLabel>
               <Input
                 type="number"
                 placeholder="f"
@@ -131,7 +131,7 @@ const VitalsForm = ({
           </HStack>
           <HStack>
             <FormControl>
-              <FormLabel>Blood Sugar</FormLabel>
+              <FormLabel>Blood Sugar(mg/dL)</FormLabel>
               <Input
                 type="number"
                 placeholder="mg/dL"
@@ -145,7 +145,7 @@ const VitalsForm = ({
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Oxygen level</FormLabel>
+              <FormLabel>Oxygen level(%)</FormLabel>
               <Input
                 type="number"
                 placeholder="%"
