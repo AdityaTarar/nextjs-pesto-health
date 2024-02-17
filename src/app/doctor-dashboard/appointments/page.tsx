@@ -93,8 +93,8 @@ const page = () => {
                 );
               })
             ) : (
-              <Text fontSize={"2xl"} textAlign={"center"}>
-                No upcomming appointments
+              <Text minW={"80vw"} textAlign={"center"} fontSize={"md"}>
+                There are no upcomming appointments.
               </Text>
             )}
           </TabPanel>
@@ -104,7 +104,7 @@ const page = () => {
                 return <AppointmentCard data={item} past={true} />;
               })
             ) : (
-              <Text fontSize={"2xl"} textAlign={"center"}>
+              <Text fontSize={"md"} textAlign={"center"} minW={"80vw"}>
                 No upcomming appointments
               </Text>
             )}
