@@ -297,7 +297,10 @@ function Page() {
                     onClick={() => handleSelectedAppointment(items)}
                   >
                     <Avatar name={items?.patientInfo?.full_name} size={"sm"} />
-                    <Text fontWeight={index === 0 ? "700" : "500"}>
+                    <Text
+                      fontWeight={index === 0 ? "700" : "500"}
+                      textTransform={"capitalize"}
+                    >
                       {items?.patientInfo?.full_name}
                     </Text>
                     <Text fontWeight={index === 0 ? "700" : "500"}>

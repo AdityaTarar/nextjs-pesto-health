@@ -87,6 +87,7 @@ const page = () => {
                     joinConsultaion={handleJoinConsultaion}
                     past={false}
                     // handleCancelAppointment={handleCancelAppointment}
+                    doctor={true}
                   />
                 );
               })

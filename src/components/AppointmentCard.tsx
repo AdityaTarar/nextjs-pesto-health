@@ -21,6 +21,7 @@ import {
 import dayjs from "dayjs";
 import React, { useContext } from "react";
 import { FaUserDoctor } from "react-icons/fa6";
+import MedicinesForm from "./MedicineFrom";
 
 const AppointmentCard = ({
   data,
@@ -29,9 +30,15 @@ const AppointmentCard = ({
   handleCancelAppointment,
   fetchMedications,
   handleRechedule,
+  doctor,
 }: any) => {
   const authContext: any = useContext(CTX);
   const { userType }: any = authContext;
+  const {
+    isOpen: medicationOpen,
+    onOpen: medicationOnOpen,
+    onClose: medicationOnClose,
+  } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const joinConsultaionButtonEnabled = (
     appointmentDate: any,
@@ -223,6 +230,15 @@ const AppointmentCard = ({
                         >
                           Cancel
                         </Button>
+                        {doctor && !data?.onlineConsultation && (
+                          <Link
+                            cursor={"pointer"}
+                            color={COLORS.primary}
+                            onClick={() => medicationOnOpen()}
+                          >
+                            <Text>Prescribe Medications</Text>{" "}
+                          </Link>
+                        )}
                         {/* <Link
                           color={COLORS.primary}
                           _hover={{ borderBottomWidth: 0 }}
@@ -298,6 +314,17 @@ const AppointmentCard = ({
           <ModalBody>
             <Text>{data?.doctorDetails?.address}</Text>
             <Text>{data?.doctorDetails?.city}</Text>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={medicationOpen} onClose={medicationOnClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            Prescribed Medication to {data?.patientInfo?.full_name}
+          </ModalHeader>
+          <ModalBody>
+            <MedicinesForm data={data} doctor={true} />
           </ModalBody>
         </ModalContent>
       </Modal>

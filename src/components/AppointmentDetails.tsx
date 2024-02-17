@@ -61,6 +61,7 @@ const AppointmentDetails = ({
               fontSize={"large"}
               fontWeight={"700"}
               color={COLORS.secondary}
+              textTransform={"capitalize"}
             >
               {appointmentDetails?.patientInfo?.full_name}
             </Text>

@@ -30,7 +30,7 @@ import {
   clearVideoConferenceDetails,
 } from "@/store/actions/patient/appointmentActions";
 
-const MedicinesForm = () => {
+const MedicinesForm = ({ doctor, data }: any) => {
   const dispatch: any = useDispatch();
   const authContext: any = useContext(CTX);
   const {
@@ -90,8 +90,8 @@ const MedicinesForm = () => {
     const payload = {
       doctorId: userDetails?._id,
       doctorName: `${userDetails?.first_name} ${userDetails?.last_name}`,
-      appointmentId: appointmentId,
-      patientId: patientId,
+      appointmentId: doctor ? data?.appointmentId : appointmentId,
+      patientId: doctor ? data?.patientId : patientId,
       symptons: formData?.symptons,
       medication: medication,
       prescribedDate: dayjs().toString(),

@@ -168,6 +168,8 @@ const page = () => {
       fetchAppointments();
     }
   }, [cancelAppointment]);
+  console.log("upcommingAppointments", upcommingAppointments);
+
   return (
     <Box px={{ base: 4, sm: 16 }} pt={{ base: 2, sm: 8 }} w={"100%"}>
       {(loading || updatedVitals?.loader || navigationLoading) && (
@@ -179,7 +181,7 @@ const page = () => {
           <Tab w={"100%"}>Past Appointments</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel maxH={"100vh"} overflowY={"scroll"}>
+          <TabPanel maxH={"100vh"} overflowY={"scroll"} w={"100%"}>
             {appointmentList?.length > 0 ? (
               appointmentList?.map((item: any) => {
                 return (
@@ -193,7 +195,7 @@ const page = () => {
                 );
               })
             ) : (
-              <HStack>
+              <HStack minW={"80vw"}>
                 <Text textAlign={"center"} color={COLORS.error} fontSize={"md"}>
                   There are no upcomming appointments.
                 </Text>
@@ -205,7 +207,7 @@ const page = () => {
               </HStack>
             )}
           </TabPanel>
-          <TabPanel maxH={"100vh"} overflowY={"scroll"}>
+          <TabPanel maxH={"100vh"} overflowY={"scroll"} minW={"100%"}>
             {pastappointmentList?.length > 0 ? (
               pastappointmentList?.map((item: any) => {
                 return (
@@ -219,7 +221,9 @@ const page = () => {
                 );
               })
             ) : (
-              <Text>No Pass appointments found</Text>
+              <Box minW={"80vw"}>
+                <Text>No Past appointments found</Text>
+              </Box>
             )}
           </TabPanel>
         </TabPanels>
