@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -16,15 +16,25 @@ import { MdDeleteForever } from "react-icons/md";
 import { COLORS } from "@/app/colors";
 import { IoMdAddCircle } from "react-icons/io";
 import { CTX } from "@/context/context";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
-import { postAddMedicationAction } from "@/store/actions/doctor/appointmentActions";
+import {
+  clearState,
+  postAddMedicationAction,
+} from "@/store/actions/doctor/appointmentActions";
+import { useRouter } from "next/navigation";
+import LoadingBackdrop from "./Loader";
 
 const MedicinesForm = () => {
   const dispatch: any = useDispatch();
   const authContext: any = useContext(CTX);
-  const { userDetails, isAuthenticated, appointmentId, patientId }: any =
-    authContext;
+  const {
+    userDetails,
+    isAuthenticated,
+    _startGlobalNavigation,
+    appointmentId,
+    patientId,
+  }: any = authContext;
   const [formData, setFormData] = useState({
     symptons: "",
     prescribedDate: "",
@@ -38,6 +48,12 @@ const MedicinesForm = () => {
       intakeType: "Before Meal",
     },
   ]);
+  const prescribedMedication = useSelector(
+    (state: any) => state?.doctorAppointmentData?.addMedication
+  );
+  console.log("prescribedMedication", prescribedMedication);
+
+  const router = useRouter();
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -75,10 +91,20 @@ const MedicinesForm = () => {
     };
     await dispatch(postAddMedicationAction(payload));
   };
+  useEffect(() => {
+    if (prescribedMedication?.data?.status === 200) {
+      _startGlobalNavigation();
+      dispatch(clearState());
+      router.replace("/doctor-dashboard");
+    }
+  }, [prescribedMedication]);
+  console.log("prescribedMedication", prescribedMedication);
+
   return (
     <VStack spacing={4} align="stretch" px={4}>
+      {prescribedMedication?.loading && <LoadingBackdrop />}
       <FormControl>
-        <FormLabel>Symptoms</FormLabel>
+        <FormLabel>Observations</FormLabel>
         <Textarea
           name="symptons"
           value={formData.symptons}
@@ -191,7 +217,7 @@ const MedicinesForm = () => {
         colorScheme="teal"
         onClick={() => handleSumbitMedicines()}
       >
-        Submit
+        Submit & Leave
       </Button>
     </VStack>
   );

@@ -69,6 +69,19 @@ export const appointmentDoctorReducer = (state = initialState, action: any) => {
           data: null
         }
       };
+    case AppointmentActionTypes.DOCTOR_ADD_MEDICATION_FAILURE:
+      return {
+        ...state,
+        addMedication: {
+          loading: false,
+          error: true,
+          data: null
+        }
+      };
+    case AppointmentActionTypes.CLEAR_STATE:
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }

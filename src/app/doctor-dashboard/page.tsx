@@ -103,17 +103,15 @@ function Page() {
     await dispatch(
       getVideoConferenceDetailsAction({ appointmentId: appointmentId })
     );
-    _meetingDetails({
-      appointmentId: appointmentId,
-      patientId: videoConferenceDetails?.payload?.data?.patientId,
-    });
   };
   useEffect(() => {
     if (videoConferenceDetails?.status === 200) {
+      _meetingDetails({
+        appointmentId: videoConferenceDetails?.data?.appointmentId,
+        patientId: videoConferenceDetails?.data?.patientId,
+      });
       setLoading(false);
-      router.push(
-        `/meeting?${videoConferenceDetails?.payload?.data?.meetingInfo?.id}`
-      );
+      router.push(`/meeting?${videoConferenceDetails?.data?.meetingInfo?.id}`);
     } else {
       setLoading(false);
     }

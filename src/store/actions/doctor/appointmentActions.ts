@@ -34,3 +34,8 @@ export const postAddMedicationAction = (credentials: any) => async (dispatch: Di
     });
   }
 };
+export const clearState = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: AppointmentActionTypes.CLEAR_STATE,
+  });
+};
